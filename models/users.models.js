@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
     password: { type: String, required: [true, 'Must provide password!'] },
     dob: { type: Date, required: [true, 'Must provide date of birth!'] },
     phoneNum: { type: String, required: [true, 'Must provide date of phone number!'] },
+    profilePic: { type: String, required: [false] },
     bankNum: { type: String, required: [true, 'Must provide date of bank number!'] },
 });
 
