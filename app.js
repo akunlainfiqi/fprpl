@@ -1,16 +1,34 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const session = require('express-session');
+
 require("dotenv").config();
+require('./passport/local-auth');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
-const routes = {
-    users: require('./routes/users.js'),
-}
-
 const connectDB = (url)=>{
     return mongoose.connect(url);
 }
+const routes = {
+    root: require('./routes/root.routes'),
+    users: require('./routes/users.routes'),
+}
+
+app.use(express.urlencoded({extended: false}));
+app.use(session({
+    secret : "capeknguli",
+    resave : true,
+    saveUninitialized: true,
+}))
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+//router to do
+app.use('/users', routes.users);
+app.use('/', routes.root);
 
 const start = async()=>{
     try {
