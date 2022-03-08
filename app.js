@@ -14,6 +14,8 @@ const connectDB = (url)=>{
 const routes = {
     root: require('./routes/root.routes'),
     users: require('./routes/users.routes'),
+    transactions: require('./routes/transactions.routes'),
+    events: require('./routes/events.routes'),
 }
 
 app.use(express.urlencoded({extended: false}));
@@ -22,13 +24,15 @@ app.use(session({
     resave : true,
     saveUninitialized: true,
 }))
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 
-//router to do
-app.use('/users', routes.users);
-app.use('/', routes.root);
+for (const [routeName, routeDir] of Object.entries(routes)){
+    if(routeName == "root") app.use('/',routes.root)
+    else app.use(`/${routeName}`, routes[routeName]);
+}
 
 const start = async()=>{
     try {
