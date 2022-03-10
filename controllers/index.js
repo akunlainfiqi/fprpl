@@ -1,3 +1,8 @@
-module.exports.UsersController = require('../controller/users.controller')
-module.exports.EventsController = require('../controller/events.controller')
-module.exports.transactionsController = require('../controller/transactions.controller')
+const UsersController = require('./users.controller');
+const EventsController = require('./events.controller');
+const TransactionsController = require('./transactions.controller');
+module.exports = {
+    UsersController,
+    EventsController,
+    TransactionsController,
+}

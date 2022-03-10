@@ -1,3 +1,9 @@
-module.exports.UsersModels = require('./users.models');
-module.exports.EventsModels = require('./events.models');
-module.exports.TransactionsModels = require('./transactions.models');
+const EventsModels = require('./events.models');
+const UsersModels = require('./users.models');
+const TransactionsModels = require('./transactions.models');
+
+module.exports = {
+    EventsModels,
+    UsersModels,
+    TransactionsModels,
+}

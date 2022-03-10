@@ -15,6 +15,11 @@ const UsersSchema = new mongoose.Schema({
         validate: [validateEmail, 'please fill a valid email address'],
         match: [/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g, "please fill a valid email address"]
     },
+    permissions : {
+        type: Number,
+        required: true,
+        default : 1,
+    },
     firstName : {
         type : String,
     },
@@ -33,10 +38,6 @@ const UsersSchema = new mongoose.Schema({
     profilePicture : String,
     kodeRekening : Number,
     nomorRekening : Number,
-    updated : {
-        type : Date,
-        default : Date.now
-    },
 })
 
 UsersSchema.methods.encryptPassword = (password) => {
