@@ -22,7 +22,7 @@ passport.use('local-signup', new LocalStrategy({
         if(user){
             return done(null, false, {message: 'User already exists'});
         } else {
-            const newUser = new UsersModel();
+            const newUser = new UsersModels();
             newUser.email = email;
             newUser.password = newUser.encryptPassword(password);
             await newUser.save();
@@ -38,7 +38,8 @@ passport.use('local-signin', new LocalStrategy({
     },
     async (req,email,password,done) => {
         const user = await UsersModels.findOne({email: email});
-        if(!user || !user.comparePassword(email,password)){
+        const res = await user.comparePassword(email,password);
+        if(!user || !res){
             return done(null, false, {message: 'Username or password incorrect'})
         }
         return done(null, user);
