@@ -1,4 +1,4 @@
-const { EventsModels } = require('../models');
+const { EventsModels } = require('../models/');
 
 async function getAll(req,res){
     try {
@@ -13,7 +13,7 @@ async function getAll(req,res){
 
 async function create(req,res){
     try { 
-        const newEvent = Object.assign(req.body,{eventOwner: req.user.id});
+        const newEvent = Object.assign(req.body, {eventOwner: req.user.id});
         const event = await EventsModels.create(newEvent);
         res.status(200).json(event);
     } catch (err) {
@@ -21,7 +21,42 @@ async function create(req,res){
     }
 }
 
+async function getById(req,res){
+    try {
+        const id = req.params.id;
+        const event = await EventsModels.findById(id);
+
+        if(!event) {
+            return res.status(404).json({ msg: `no events with id: ${ id }` });
+        }
+            res.status(200).json(event);
+            
+    } catch (error) {
+        res.status(500).json({ msg: error });
+    }
+}
+
+async function update(req,res){
+    try {
+        const id = req.params.id;
+        const event = await EventsModels.findOneAndUpdate( { id }, req.body, {
+            new: true,
+            runValidators: true,
+        });
+
+        if(!event) {
+            return res.status(404).json({ msg: `no events with id: ${ id }` });
+        }
+            res.status(200).json(event);
+            
+    } catch (error) {
+        res.status(500).json({ msg: error });
+    }
+}
+
 module.exports = {
     getAll,
     create,
+    update,
+    getById,
 }
