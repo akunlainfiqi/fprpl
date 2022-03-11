@@ -1,15 +1,29 @@
 const router = require('express').Router();
 const { EventsController } = require('../controllers');
 
+router.get('/', (req, res) => {
+    res.status(200).send({ message: 'events' });
+});
+
 router.get(
-    '/',
+    '/all',
     asyncHandler(EventsController.getAll)
+);
+
+router.get(
+    '/:id',
+    asyncHandler(EventsController.getById)
 );
 
 router.post(
     '/create',
     isAuthenticated,
     asyncHandler(EventsController.create)
+);
+
+router.patch(
+    '/:id',
+    asyncHandler(EventsController.update)
 );
 
 

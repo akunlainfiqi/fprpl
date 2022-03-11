@@ -18,7 +18,7 @@ const routes = {
     events: require('./routes/events.routes'),
 }
 
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 app.use(session({
     secret : "capeknguli",
     resave : true,
