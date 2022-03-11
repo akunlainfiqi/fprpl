@@ -18,7 +18,7 @@ describe("GET /", ()=>{
     })
 });
 
-describe("GET /signin", ()=>{
+describe("POST /signin", ()=>{
     test("should return objects of users",async ()=>{
         const response = await agent.post("/signin").send({
             email: "mahe@gmail.com",
@@ -28,9 +28,20 @@ describe("GET /signin", ()=>{
     })
 })
 
-describe("GET /users/profile/id", ()=>{
+describe("POST /signup", ()=>{
     test("should return objects of users",async ()=>{
-        const response = await agent.get("/users/profile/62264c7120c323de1fd5a61b")
-        expect(response.statusCode).toBe(200);
+        const response = await agent.post("/signup").send({
+            email: "mahe123@gmail.com",
+            password: "123456"
+        })
+        expect(response.statusCode).toBe(302);
     })
 })
+
+describe("POST /logout", ()=>{
+    test("should return objects of users",async ()=>{
+        const response = await agent.post("/logout")
+        expect(response.statusCode).toBe(302);
+    })
+})
+
