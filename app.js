@@ -37,12 +37,12 @@ for (const [routeName, routeDir] of Object.entries(routes)){
 const start = async()=>{
     try {
         await connectDB(process.env.DBURL);
-        app.listen(PORT, () =>{
-            console.log(`listening on port ${PORT}`)
-        })
+        app.listen(PORT)
     } catch (err) {
         console.error(err)
     }
 }
 
-start();
+start(console.log());
+
+module.exports = app;
