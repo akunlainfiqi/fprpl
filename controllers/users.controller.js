@@ -11,7 +11,13 @@ async function getUsersById(req,res){
 
 async function getUsers(req,res){
     try{
-        return res.status(200).json(req.user);
+        if(req.user)
+            return res.status(200).json({
+                user: req.user,
+                token: req.query.secret_token
+              });
+        else 
+            return res.json({user: null})
     } catch (err) {
         return res.status(500).send(err);
     }

@@ -12,7 +12,6 @@ router.get('/', (req, res) => {
 
 router.get(
     '/profile', 
-    isAuthenticated, 
     asyncHandler(UsersController.getUsers)
 );
 
